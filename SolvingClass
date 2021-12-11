@@ -1,0 +1,41 @@
+
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+
+fun solve(board: Array<Array<Int>>): String {
+    //looping in every row
+    for (i in board.indices) {
+        //looping in every col
+        for (j in board[i].indices) {
+            //check if it's not the last element of col
+            if (j != board.size-1)
+                if (board[i][j] == board[i][j + 1]) return "No"
+            //check if it's not the last element of row
+            if (i != board.size-1)
+                if (board[i][j] == board[i + 1][j]) return "No"
+        }
+    }
+    return "Yes"
+}
+
+// start point 
+fun main() {
+    //reading the number of test cases
+    val t = readLine()!!.trim().toInt()
+    // loop for the test cases
+    for (tItr in 1..t) {
+        // the size of each matrix ( Board is symmetric matrix )
+        val n = readLine()!!.trim().toInt()
+        // init all matrix with zeros
+        val board = Array<Array<Int>>(n, { Array<Int>(n, { 0 }) })
+        // read the matrix
+        for (i in 0 until n) {
+            board[i] = readLine()!!.trimEnd().split(" ").map { it.toInt() }.toTypedArray()
+        }
+        // go to solve fun whiches return {No -> for a not valid cheese board , Yes -> for a not valid cheese board}
+        val result = solve(board)
+
+        println(result)
+    }
+}
